@@ -35,7 +35,9 @@ function ArtWorkRow({ artwork }) {
         <p className="text-sm">
           {place_of_origin}({date_start || ''} - {date_end || ''})
         </p>
-        <p className="text-sm">{material_titles || ''}</p>
+        <p className="text-sm break-words">
+          {material_titles.toString() || ''}
+        </p>
       </Link>
     </div>
   );
