@@ -1,47 +1,13 @@
 import * as React from 'react';
-import { Spinner, Input, FullPageSpinner } from '../components/lib';
-import { FaSearch, FaTimes } from 'react-icons/fa';
-import { BreedRow } from '../components/breed-row';
-import { useBreedSearch } from '../hooks/useBreeds';
+import { FullPageSpinner } from '../components/lib';
+import { ArtWorkRow } from '../components/artwork-row';
+import { useGetArtWorks } from '../hooks/useArtWorks';
 
-function DogListScreen() {
-  const [query, setQuery] = React.useState('');
-  const { breeds, isError, error, isLoading } = useBreedSearch(query);
-
-  const handleSearchClick = (event) => {
-    event.preventDefault();
-    setQuery(event.target.elements.search.value);
-  };
-
+function ArtWorksScreen() {
+  const { artworks, isError, error, isLoading } = useGetArtWorks();
   return (
     <div>
-      <div className="w-full md:w-1/2 m-auto flex justify-center items-center">
-        <form onSubmit={handleSearchClick} className="w-full">
-          <Input
-            placeholder="Search the breed..."
-            id="search"
-            type="search"
-            css={{ width: '100%' }}
-            className="w-full"
-          />
-          <button
-            type="submit"
-            style={{
-              border: '0',
-              position: 'relative',
-              marginLeft: '-35px',
-              background: 'transparent',
-            }}>
-            {isLoading ? (
-              <Spinner />
-            ) : isError ? (
-              <FaTimes aria-label="error" className=" text-danger" />
-            ) : (
-              <FaSearch aria-label="search" />
-            )}
-          </button>
-        </form>
-      </div>
+      <div className="w-full md:w-1/2 m-auto flex justify-center items-center"></div>
 
       {isError ? (
         <div className="text-danger py-4">
@@ -50,10 +16,10 @@ function DogListScreen() {
         </div>
       ) : null}
 
-      {breeds.length ? (
+      {artworks.length ? (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 py-4">
-          {breeds.map((breed, i) => (
-            <BreedRow breed={breed} key={i} />
+          {artworks.map((artwork, i) => (
+            <ArtWorkRow artwork={artwork} key={i} />
           ))}
         </div>
       ) : (
@@ -66,4 +32,4 @@ function DogListScreen() {
     </div>
   );
 }
-export default DogListScreen;
+export default ArtWorksScreen;

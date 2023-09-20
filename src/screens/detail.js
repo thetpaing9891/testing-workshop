@@ -1,68 +1,51 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useBreed, useBreedImage } from '../hooks/useBreeds';
-import { FullPageSpinner } from '../components/lib';
-function DogDetailScreen() {
-  const { breedId } = useParams();
-  const { breed } = useBreed(breedId);
+import { useArtWork } from '../hooks/useArtWorks';
+import { FullPageSpinner, replaceImage } from '../components/lib';
+
+function DetailScreen() {
+  const { artWorkId } = useParams();
+  const { artwork, isLoading } = useArtWork(artWorkId);
 
   const {
-    name,
-    bred_for,
-    height,
-    weight,
-    breed_group,
-    life_span,
-    temperament,
-    reference_image_id,
-  } = breed;
-  const { image, isLoading } = useBreedImage(reference_image_id);
-  const { url } = image;
+    credit_line,
+    title,
+    artist_display,
+    dimensions,
+    date_display,
+    material_titles,
+    place_of_origin,
+    image_id,
+  } = artwork;
 
   return (
-    <div className=" max-w-lg m-auto">
+    <div className="m-auto py-4">
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-[200px]">
-          <FullPageSpinner />
-        </div>
+        <FullPageSpinner />
       ) : (
-        <div className="flex flex-col gap-y-4">
-          <h2 className=" text-3xl text-center">{name || ''}</h2>
-          <div className="flex justify-center items-center">
-            <img
-              src={url}
-              className=" max-h-[400px] object-cover border rounded-lg"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4 border p-2 md:p-5 rounded-lg">
           <div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className=" text-gray-400">Bread For</label>
-              <div>- {bred_for || ''}</div>
+            <div className="flex justify-center items-center">
+              <img
+                src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg`}
+                alt={title}
+                onError={replaceImage}
+                className="object-cover border rounded-lg"
+              />
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="text-gray-400">Height</label>
-              <div>- {height && height.metric} cm</div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="text-gray-400">Weight</label>
-              <div>- {weight && weight.metric} cm</div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="text-gray-400">Breed Group</label>
-              <div>- {breed_group || ''}</div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="text-gray-400">Life Span</label>
-              <div>- {life_span || ''}</div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="text-gray-400">Temperament</label>
-              <div>{temperament || ''}</div>
-            </div>
+          </div>
+          <div className="flex flex-col gap-y-4">
+            <h2 className="text-3xl font-bold">{title || ''}</h2>
+            <h3 className=" text-2xl">{artist_display}</h3>
+            <p>{place_of_origin}</p>
+            <p>{date_display}</p>
+            <p>{dimensions}</p>
+            <p>{material_titles}</p>
+            <p>{credit_line}</p>
           </div>
         </div>
       )}
     </div>
   );
 }
-export default DogDetailScreen;
+export default DetailScreen;
