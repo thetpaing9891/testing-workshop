@@ -5,6 +5,7 @@ import { FullPageSpinner, replaceImage } from '../components/lib';
 
 function DetailScreen() {
   const { artWorkId } = useParams();
+  const [addFavourite, setFavourite] = React.useState(false);
   const { artwork, isLoading } = useArtWork(artWorkId);
 
   const {
@@ -35,7 +36,24 @@ function DetailScreen() {
             </div>
           </div>
           <div className="flex flex-col gap-y-4">
-            <h2 className="text-3xl font-bold">{title || ''}</h2>
+            <div>
+              {addFavourite ? (
+                <button
+                  onClick={() => setFavourite(false)}
+                  className="bg-[#b50938] hover:bg-opacity-70 text-white py-2 px-4 rounded-lg">
+                  Remove Favorites
+                </button>
+              ) : (
+                <button
+                  onClick={() => setFavourite(true)}
+                  className="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded-lg">
+                  Add to Favorites
+                </button>
+              )}
+            </div>
+            <h2 className="text-3xl font-bold" role="heading">
+              {title || ''}
+            </h2>
             <h3 className=" text-2xl">{artist_display}</h3>
             <p>{place_of_origin}</p>
             <p>{date_display}</p>
