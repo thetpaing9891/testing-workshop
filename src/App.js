@@ -69,7 +69,7 @@ function ModelContent() {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<ArtWorksScreen />} />
+      <Route path="" element={<ArtWorksScreen />} />
       <Route path="/detail/:artWorkId" element={<DetailScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Routes>

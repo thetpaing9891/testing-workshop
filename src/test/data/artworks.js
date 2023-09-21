@@ -8,8 +8,8 @@ async function create(breed) {
   return breed;
 }
 
-async function read(breedId) {
-  return artworks.find((breed) => breed.id === breedId);
+async function read(artWrokId) {
+  return artworks.find((artwork) => artwork.id === artWrokId);
 }
 
 async function query(search) {
