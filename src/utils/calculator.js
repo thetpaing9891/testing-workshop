@@ -2,9 +2,7 @@ export function getMortgageLoan(principal, annualInterest, years) {
   const MONTHS_IN_YEAR = 12;
   const PERCENT = 100;
 
-  const monthlyInterest = Math.fround(
-    annualInterest / PERCENT / MONTHS_IN_YEAR,
-  );
+  const monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
 
   const numberOfPayments = parseInt(years) * MONTHS_IN_YEAR;
 
